@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="Shift_JIS">
+    <title>数字タッチゲーム</title>
+    <style>
+        #board > input {
+        width: 40px;
+        margin-right: 5px;
+        }
+    </style>
+</head>
+<body>
+<h1>小さい数字からタッチ！</h1>
+
+<p>Time:
+    <spen id="time">0.0</spen>
+    sec.
+</p>
+
+<div id="board">
+</div>
+
+<p><input type="button" value="start!" id="timerStart"></p>
+
+<script>
+
+(function() {
+
+    var size = 4;
+    var currentNum;
+    var timer;
+    var startTime;
+    var isPlaying = false;
+
+    document.getElementById('timerStart').onclick = function() {
+        timerStart();
+    };
+
+    function timerStart() {
+        initBoard();
+        currentNum = 0;
+        startTime = (new Date()).getTime();
+        if (!isPlaying) {
+            isPlaying = true;
+            runTimer();
+        }
+    }
+
+    function createButton(num) {
+        var btn;
+        btn = document.createElement('input');
+        btn.type = 'button';
+        btn.value = num;
+        btn.onclick = function() {
+            if (this.value == currentNum) {
+                this.disabled = true;
+                currentNum++;
+            }
+            if (currentNum == size * size) {
+                clearTimeout(timer);
+                isPlaying = false;
+                alert('Your Score: ' + document.getElementById('time').innerHTML);
+            }
+        };
+        return btn;
+    }
+
+    function initBoard() {
+        var buttons = [];
+        var board;
+        var button;
+
+        for (var i = 0; i < size * size; i++) {
+            buttons.push(createButton(i));
+        }
+
+        board = document.getElementById('board');
+        while(board.firstChild) {
+            board.removeChild(board.firstChild);
+        }
+
+        while (buttons.length) {
+            button = buttons.splice(Math.floor(Math.random() * buttons.length), 1);
+            board.appendChild(button[0]);
+            if (buttons.length % size == 0) {
+                board.appendChild(document.createElement('br'));
+            }
+        }
+    }
+
+    function runTimer() {
+        document.getElementById('time').innerHTML = (((new Date()).getTime() - startTime) / 1000).toFixed(1);
+        timer = setTimeout(function() {
+            runTimer();
+        }, 100);
+    }
+
+})();
+
+
+</script>
+
+</body>
+</html>
