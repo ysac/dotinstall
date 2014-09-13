@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="Shift-JIS">
+    <title>5秒でキメろ！</title>
+</head>
+<body>
+	<h1>5秒でキメろ！</h1>
+	<p><input type="button" value="start" id="start"></p>
+	<p><input type="button" value="stop" id="stop"></p>
+	<p id="result"></p>
+
+    <script>
+
+	(function() {
+
+	var start;
+	var stop;
+	var FIVE_SECOND = 5 * 1000;
+
+	document.getElementById('start').onclick = function() {
+		start();
+	};
+	document.getElementById('stop').onclick = function() {
+		stop();
+	};
+
+	function start() {
+		// start時刻を取得
+		start = new Date().getTime();
+		console.log(start);
+	}
+
+	function stop() {
+		// stop時刻を取得
+		stop = new Date().getTime();
+		console.log(stop);
+
+		// 差を算出して、5秒とどうだ？
+		var diff = FIVE_SECOND - (stop - start);
+
+		// 結果を表示
+		var e = document.getElementById('result');
+		if (diff == 0) {
+			e.innerHTML = 'ぴったし！すごい！';
+		} else if (diff > 0) {
+			e.innerHTML = (diff / 1000) + '秒、速い！';
+		} else {
+			e.innerHTML = (diff / 1000) + '秒、遅い！';
+		}
+	}
+
+	})();
+
+    </script>
+</body>
+</html>
