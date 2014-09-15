@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html langl="ja">
+<head>
+	<meta charset="utf-8">
+	<title>jQueryでスライドショー</title>
+	<style>
+		body {
+			margin: 10px auto;
+			text-align: center;
+		}
+		.thumbnail {
+			width: 125px;
+			height: 83px;
+			opacity: 0.5;    // 半透明処理
+			cursor: pointer; // カーソルを変更
+		}
+		.current {
+			opacity: 1.0;
+		}
+		.thumbnail + .thumbnail { // 隣り合う属性でのみ有効
+			margin-left: 4px;
+		}
+	</style>
+</head>
+<body>
+	<div id="thumbnails"></div>
+	<div id="main"></div>
+	<div id="nav">
+		<button id="prev">&laquo; 前へ</button>
+		<button id="next">次へ &raquo;</button>
+		<button id="play">再生</button>
+		<button id="stop">停止</button>
+	</div>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js">
+	</script>
+
+	<script>
+		$(function() {
+
+			var files = [
+				'food1.jpg',
+				'food2.jpg',
+				'food3.jpg',
+				'food4.jpg'
+			];
+			var img;
+			var currentNum = 0;
+			var nowPlaying = false;
+
+			for (var i = 0; i < files.length; i++) {
+				img = $('<img>').attr('src', files[i]).addClass('thumbnail');
+				$('#thumbnails').append(img);
+			}
+
+			$('#main').append(
+				$('<img>').attr('src', files[0])
+			);
+
+			$('.thumbnail:first').addClass('current');
+
+			$('.thumbnail').click(function() {
+				$('#main img').attr('src', $(this).attr('src'));
+				currentNum = $(this).index();
+				$(this).addClass('current').siblings().removeClass('current');
+			});
+
+			$('#prev').click(function() {
+				currentNum--;
+				if (currentNum < 0) {
+					currentNum = files.length - 1;
+				}
+				$('#main img').attr('src', files[currentNum]);
+				$('.thumbnail').removeClass('current');
+				$('.thumbnail').eq(currentNum).addClass('current');
+			});
+
+			$('#next').click(function() {
+				currentNum++;
+				if (currentNum > files.length - 1) {
+					currentNum = 0;
+				}
+				$('#main img').attr('src', files[currentNum]);
+				$('.thumbnail').removeClass('current');
+				$('.thumbnail').eq(currentNum).addClass('current');
+			});
+
+			function autoPlay() {
+				$('#next').click();
+				timer = setTimeout(function() {
+					autoPlay();
+				}, 1000);
+			}
+
+			$('#play').click(function() {
+				if (nowPlaying) return;
+				nowPlaying = true;
+				autoPlay();
+			});
+
+			$('#stop').click(function() {
+				clearTimeout(timer);
+				nowPlaying = false;
+			});
+
+		})
+	</script>
+
+</body>
+</html>
