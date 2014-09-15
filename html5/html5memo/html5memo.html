@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="utf-8">
+    <script src="http://code.jquery.com/jquery-1.6.4.min.js"></script>
+    <title>HTML5を使ったメモ帳</title>
+</head>
+<body>
+    <h1>メモ帳</h1>
+    <textarea id="memo" rows="10" cols="40"></textarea>
+    <p>
+<!--
+        保存ボタン
+        <input type="button" id="save" value="保存">
+        保存中メッセージ
+        <p id="message" style="display:none;">Saving...</p>
+-->
+        <input type="button" id="clear" value="消去">
+    </p>
+
+<script>
+$(function() {
+
+    /*
+    localStoregeの各種関数
+    - localStorage.setItem(key, value);
+    - localStorage.getItem(key);
+    - localStorage.removeItem(key);
+    - localStorage.clear();
+    - IEにはいろいろと罠がある
+    */
+        
+    if (localStorage.getItem('memo')) {
+        $('#memo').val(localStorage.getItem('memo'));
+    }
+    
+    $('#clear').click(function() {
+        $('#memo').val('');
+        localStorage.removeItem('memo');
+        localStorage.clear();
+    });
+
+    /*
+    // 保存ボタン関数
+    $('#save').click(function() {
+        localStorage.setItem('memo', $('#memo').val());
+        // console.log(localStorage.getItem('memo'));
+    });
+    
+    // 1s間隔での自動保存と保存中メッセージ表示
+    (function autoSave() {
+        localStorage.setItem('memo', $('#memo').val());
+        $('#message').show().hide(200);
+        setTimeout(autoSave, 1000);
+    })();
+    // autoSave();
+    */
+
+    $('#memo').bind('keyup', function() {
+        localStorage.setItem('memo', $('#memo').val());
+    });
+                    
+});
+</script>
+</body>
+</html>
