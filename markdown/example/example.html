@@ -1,0 +1,150 @@
+sublime text
+Markdown preview
+https://github.com/revolunet/sublimetext-markdown-preview
+
+基本設定→キーバインド→Userから下記を登録する
+{ "keys": ["alt+m"], "command": "markdown_preview", "args": {"target": "browser", "parser":"markdown"} },
+
+
+h1 - h6
+
+# Title 1
+## Title 2
+### Title 3
+#### Title 4
+##### Title 5
+###### Title 6
+
+
+Title 1
+=
+
+Title 2
+-
+
+---
+
+p
+br
+
+こんにちは。
+こんにちは。
+
+こんにちは。
+
+
+---
+
+hr
+
+---
+***
+___
+- - -
+
+
+---
+
+em
+strong
+
+_強調！_
+__強調！__
+
+*強調！*
+**強調！**
+
+
+---
+
+blockquote
+
+> stay foolish!
+> > stay foolish!
+
+
+---
+
+code
+
+`
+var x = 1
+`
+`var y = 1`
+
+here's code
+
+	var x = 1
+	var y = 1
+
+
+---
+
+ul
+ol
+
+- item1
+- item2
+- item3
+
+* item1
+* item2
+* item3
+
+1. item1
+2. item2
+3. item3
+
+1. item1
+1. item2
+1. item3
+
+
+---
+
+a
+
+- 自動リンク
+- インラインリンク
+- 外部参照リンク
+
+<http://google.com>
+
+[Google](http://google.com "title")
+
+[Google][1]
+
+[1]: http://google.com "title"
+
+
+---
+
+img
+
+![ごはん](food.jpg)
+
+![ごはん][1]
+
+[1]: food.jpg
+
+[![ごはん](food.jpg)](http://google.com)
+
+
+---
+
+inline html
+escape
+
+<http://google.com>
+
+<a href="http://google.com" target="_blank">Google</a>
+
+\# Title 1
+
+
+
+
+
+
+
+
