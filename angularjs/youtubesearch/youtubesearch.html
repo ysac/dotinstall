@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ja" ng-app>
+<head>
+	<meta charset="utf-8">
+	<title>AngularJS YouTube Search</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular.min.js"></script>
+	<script src="youtubesearch.js"></script>
+</head>
+<body>
+	<h1>YouTube Search</h1>
+	<div ng-controller="mainCtrl">
+		<form ng-submit="doSearch()" name="myForm">
+			<input type="text" ng-model="query" required>
+			<input type="submit" value="search" ng-disabled="myForm.$invalid">
+		</form>
+		<h2>Results</h2>
+		<ul ng-show="results.length" style="list-style:none;padding:0">
+			<li ng-repeat="result in results">
+				<img ng-src="{{result.media$group.media$thumbnail[0].url}}">
+				{{result.title.$t}}
+			</li>
+		</ul>
+		<p ng-hide="results.length">↑ 上から検索してください。</p>
+	</div>
+</body>
+</html>
